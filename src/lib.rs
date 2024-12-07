@@ -8,10 +8,16 @@ pub fn round_floats(value: f64) -> i64
     return value.round() as i64;
 }
 
+pub fn subtract_f64(a: f64, b: f64) -> f64
+{
+    return a - b;
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
+    // Test cases for add_f64
     #[test]
     fn test_add_f64_floats() {
         let a = 1.0;
@@ -28,6 +34,7 @@ mod tests {
         assert_eq!(add_f64(a as f64, b as f64), expected);
     }
 
+    // Test cases for round_floats
     #[test]
     fn test_rounding_floats_down() {
         let values = vec![1.05, 1.35, 1.45, 1.4999];
@@ -45,4 +52,23 @@ mod tests {
             assert_eq!(round_floats(value), expected);
         }
     }
+
+    // Test cases for subtract_f64
+    #[test]
+    fn test_subtract_f64_floats() {
+        let a = 1.0;
+        let b = 2.0;
+        let expected = -1.0;
+        assert_eq!(subtract_f64(a, b), expected);
+    }
+
+    #[test]
+    fn test_subtract_f64_integers() {
+        let a = 1;
+        let b = 2;
+        let expected = -1.0;
+        assert_eq!(subtract_f64(a as f64, b as f64), expected);
+    }
+
+    // Test cases for multiply_f64
 }
