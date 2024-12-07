@@ -11,6 +11,23 @@ pub fn add_return_int(a: f64, b: f64) -> i64
     return round_floats(result);
 }
 
+pub fn create_key_value_pairs<'a>(keys: Vec<&'a str>, values: Vec<&'a str>) -> Vec<(&'a str, &'a str)>
+{
+    let mut object = Vec::new();
+    for i in 0..keys.len() {
+        // if the values array is shorter than the keys array, add an empty string
+        // if the values array is longer than the keys array, ignore the extra values
+        if i >= values.len() {
+            object.push((keys[i], ""));
+            continue;
+        } else {
+            object.push((keys[i], values[i]));
+        }
+    }
+    object
+}
+
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -52,5 +69,39 @@ mod tests {
         let expected = 4;
         assert_eq!(add_return_int(a as f64, b as f64), expected);
         assert_eq!(add_return_int(d as f64, c as f64), expected);
+    }
+
+    // Test cases for create_key_value_pairs in an object 
+    // takes a parameter of an array for the keys and an array for the values
+    #[test]
+    fn test_create_key_value_pairs() {
+        let keys = vec!["name", "age", "city"];
+        let values = vec!["John Doe", "30", "New York"];
+        let expected = vec![("name", "John Doe"), ("age", "30"), ("city", "New York")];
+        assert_eq!(create_key_value_pairs(keys, values), expected);
+    }
+
+    #[test]
+    fn test_create_key_value_pairs_empty() {
+        let keys = vec![];
+        let values = vec![];
+        let expected = vec![];
+        assert_eq!(create_key_value_pairs(keys, values), expected);
+    }
+
+    #[test]
+    fn test_create_key_value_pairs_mismatch_less_values() {
+        let keys = vec!["name", "age", "city"];
+        let values = vec!["John Doe", "30"];
+        let expected = vec![("name", "John Doe"), ("age", "30"), ("city", "")];
+        assert_eq!(create_key_value_pairs(keys, values), expected);
+    }
+
+    #[test]
+    fn test_create_key_value_pairs_mismatch_more_values() {
+        let keys = vec!["name", "age"];
+        let values = vec!["John Doe", "30", "New York"];
+        let expected = vec![("name", "John Doe"), ("age", "30")];
+        assert_eq!(create_key_value_pairs(keys, values), expected);
     }
 }
