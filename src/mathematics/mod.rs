@@ -1,4 +1,4 @@
 pub mod addition;
-mod subtraction;
+pub mod subtraction;
 mod multiplication;
 mod division;

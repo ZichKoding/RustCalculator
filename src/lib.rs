@@ -1,7 +1,7 @@
 // Declare a module named `mathematics`.
 // This will refer to a `mathematics` directory or file for related code,
 // such as arithmetic operations, to keep the code organized.
-mod mathematics;
+pub mod mathematics;
 
 /// Rounds a floating-point number to the nearest integer and returns it as an i64.
 ///
